@@ -26,6 +26,7 @@ DOSKEY houdini="G:\pipeline\DCCs\Side Effects Software\Houdini 20.0.590\bin\houd
 DOSKEY maya="G:\pipeline\Utilities\DCC_Wrappers\Maya\2024\maya24.bat" $*
 DOSKEY ktoa="G:\pipeline\Utilities\DCC_Wrappers\Katana\7.0\KtoA.bat" $*
 DOSKEY ktorm="G:\pipeline\Utilities\DCC_Wrappers\Katana\7.0\KtoPRMan.bat" $*
+DOSKEY katana="G:\pipeline\Utilities\DCC_Wrappers\Katana\7.0\katana.bat" $*
 DOSKEY gaffer="G:\pipeline\Utilities\DCC_Wrappers\Gaffer\1.4\gaffer.bat" $*
 rem DOSKEY gafferbeta="G:\pipeline\Utilities\DCC_Wrappers\Gaffer\1.4\gaffer_1.4b6.bat" $*
 DOSKEY nuke="G:\pipeline\Utilities\DCC_Wrappers\Nuke\15.0\Nuke.bat" $*
