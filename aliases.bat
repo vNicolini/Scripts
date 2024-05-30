@@ -31,5 +31,5 @@ DOSKEY gaffer="G:\pipeline\Utilities\DCC_Wrappers\Gaffer\1.4\gaffer.bat" $*
 rem DOSKEY gafferbeta="G:\pipeline\Utilities\DCC_Wrappers\Gaffer\1.4\gaffer_1.4b6.bat" $*
 DOSKEY nuke="G:\pipeline\Utilities\DCC_Wrappers\Nuke\15.0\Nuke.bat" $*
 DOSKEY guerilla="G:\pipeline\Utilities\DCC_Wrappers\Guerilla\guerilla.bat" $*
-
+DOSKEY sp="G:\pipeline\Utilities\DCC_Wrappers\SubstanceSuite\SubstancePainter.bat" $*
 
