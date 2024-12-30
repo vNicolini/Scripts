@@ -13,7 +13,7 @@ for %%i in (%*) do (
             rem Check if it's a valid file (ignoring folders)
             if not "%%~fj"=="" (
                 rem Running maketx command to generate the .exr.tx file
-                "C:\Users\valentin.nicolini\Desktop\PERSO\Pipe\Arnold-7.3.6.0_beta-windows\bin\maketx.exe" v -u --threads 4 --format exr --fixnan box3 -constant-color-detect --monochrome-detect --opaque-detect --colorconfig %OCIO% --unpremult --oiio  %%j
+                "C:\Users\valentin.nicolini\Desktop\PERSO\Pipe\Arnold-7.3.6.0_beta-windows\bin\maketx.exe" -v -u --threads 4 --format exr --fixnan box3 -constant-color-detect --monochrome-detect --opaque-detect --colorconfig %OCIO% --unpremult --oiio  %%j
                 
                 rem Extracting the filename without extension
                 set "input_file=%%~nj"
@@ -52,7 +52,7 @@ for %%i in (%*) do (
     ) else (
         rem If it's a file, process it directly
         rem Running maketx command to generate the .exr.tx file
-        "C:\Users\valentin.nicolini\Desktop\PERSO\Pipe\Arnold-7.3.6.0_beta-windows\bin\maketx.exe" v -u --threads 4 --format exr --fixnan box3 -constant-color-detect --monochrome-detect --opaque-detect --colorconfig %OCIO% --unpremult --oiio  %%i
+        "C:\Users\valentin.nicolini\Desktop\PERSO\Pipe\Arnold-7.3.6.0_beta-windows\bin\maketx.exe" -v -u --threads 4 --format exr --fixnan box3 -constant-color-detect --monochrome-detect --opaque-detect --colorconfig %OCIO% --unpremult --oiio  %%i
 
         rem Extracting the filename without extension
         set "input_file=%%~ni"
