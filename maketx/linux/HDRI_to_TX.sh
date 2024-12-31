@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the path to the maketx executable
-MAKETX='/home/vni/pipeline/addons/Arnold/SDK/7.3.6.0/bin/maketx'
+MAKETX='/home/vni/pipeline/Addons/SDKs/Arnold/Arnold-7.3.6.0-linux/bin/maketx'
 
 # Loop through each argument passed to the script
 for input in "$@"; do
