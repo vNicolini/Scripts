@@ -1,5 +1,7 @@
 @ECHO OFF
-set "OCIO=C:\Users\valentin.nicolini\Desktop\PERSO\Pipe\OCIO\ACES\1.3\cg-config-v2.1.0_aces-v1.3_ocio-v2.1.ocio"
+
+rem If you don't set your OCIO variable either in your resolved environment or at the system level you can set it up here
+rem set "OCIO=C:\Users\valentin.nicolini\Desktop\PERSO\Pipe\OCIO\ACES\1.3\cg-config-v2.1.0_aces-v1.3_ocio-v2.1.ocio"
 
 rem Enable delayed variable expansion
 setlocal enabledelayedexpansion
@@ -31,12 +33,13 @@ for %%i in (%*) do (
                 set "output_file=%%i\!new_name!"
                 
                 rem Display variables for debugging
-                @REM echo Input dir: %%i
-                @REM echo Input file: %%~nj
-                @REM echo File extension: !file_ext!
-                @REM echo Base name: !base_name!
-                @REM echo New name: !new_name!
-                @REM echo Output file: !output_file!
+                echo Input dir: %%i
+                echo Input file: %%~nj
+                echo File extension: !file_ext!
+                echo Base name: !base_name!
+                echo New name: !new_name!
+                echo dpfj value: %%~dpfj
+                echo Output file: !output_file!
 
                 
                 rem Check if the file exists and rename it
@@ -70,11 +73,11 @@ for %%i in (%*) do (
         set "output_file=%%~dpi!new_name!"
         
         rem Display variables for debugging
-        @REM echo Input file: %%~ni
-        @REM echo File extension: !file_ext!
-        @REM echo Base name: !base_name!
-        @REM echo New name: !new_name!
-        @REM echo Output file: !output_file!
+        echo Input file: %%~ni
+        echo File extension: !file_ext!
+        echo Base name: !base_name!
+        echo New name: !new_name!
+        echo Output file: !output_file!
         
         rem Check if the file exists and rename it
         if exist "!output_file!" (

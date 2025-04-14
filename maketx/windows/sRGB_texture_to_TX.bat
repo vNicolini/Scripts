@@ -1,5 +1,7 @@
 @ECHO OFF
-set "OCIO=C:\Users\valentin.nicolini\Desktop\PERSO\Pipe\OCIO\ACES\1.3\cg-config-v2.1.0_aces-v1.3_ocio-v2.1.ocio"
+
+rem If you don't set your OCIO variable either in your resolved environment or at the system level you can set it up here
+rem set "OCIO=C:\Users\valentin.nicolini\Desktop\PERSO\Pipe\OCIO\ACES\1.3\cg-config-v2.1.0_aces-v1.3_ocio-v2.1.ocio"
 
 rem Enable delayed variable expansion
 setlocal enabledelayedexpansion
@@ -13,7 +15,7 @@ for %%i in (%*) do (
             rem Check if it's a valid file (ignoring folders)
             if not "%%~fj"=="" (
                 rem Running maketx command to generate the .exr.tx file
-                "C:\Users\valentin.nicolini\Desktop\PERSO\Pipe\Arnold-7.3.6.0_beta-windows\bin\maketx.exe" -v -u --threads 4 --format exr --checknan --constant-color-detect --opaque-detect --colorconfig %OCIO% --colorconvert "sRGB Encoded Rec.709 (sRGB)" ACEScg --unpremult --oiio  %%j
+                "C:\Users\valentin.nicolini\Desktop\PERSO\Pipe\Arnold-7.3.6.0_beta-windows\bin\maketx.exe" -v -u --threads 4 --format exr --checknan --constant-color-detect --opaque-detect --colorconvert "sRGB Encoded Rec.709 (sRGB)" ACEScg --unpremult --oiio  %%j
                 
                 rem Extracting the filename without extension
                 set "input_file=%%~nj"
@@ -31,12 +33,12 @@ for %%i in (%*) do (
                 set "output_file=%%i\!new_name!"
                 
                 rem Display variables for debugging
-                @REM echo Input dir: %%i
-                @REM echo Input file: %%~nj
-                @REM echo File extension: !file_ext!
-                @REM echo Base name: !base_name!
-                @REM echo New name: !new_name!
-                @REM echo Output file: !output_file!
+                echo Input dir: %%i
+                echo Input file: %%~nj
+                echo File extension: !file_ext!
+                echo Base name: !base_name!
+                echo New name: !new_name!
+                echo Output file: !output_file!
 
                 
                 rem Check if the file exists and rename it
@@ -52,7 +54,7 @@ for %%i in (%*) do (
     ) else (
         rem If it's a file, process it directly
         rem Running maketx command to generate the .exr.tx file
-        "C:\Users\valentin.nicolini\Desktop\PERSO\Pipe\Arnold-7.3.6.0_beta-windows\bin\maketx.exe" -v -u --threads 4 --format exr --checknan --constant-color-detect --opaque-detect --colorconfig %OCIO% --colorconvert "sRGB Encoded Rec.709 (sRGB)" ACEScg --unpremult --oiio  %%i
+        "C:\Users\valentin.nicolini\Desktop\PERSO\Pipe\Arnold-7.3.6.0_beta-windows\bin\maketx.exe" -v -u --threads 4 --format exr --checknan --constant-color-detect --opaque-detect --colorconvert "sRGB Encoded Rec.709 (sRGB)" ACEScg --unpremult --oiio  %%i
 
         rem Extracting the filename without extension
         set "input_file=%%~ni"
@@ -70,11 +72,11 @@ for %%i in (%*) do (
         set "output_file=%%~dpi!new_name!"
         
         rem Display variables for debugging
-        @REM echo Input file: %%~ni
-        @REM echo File extension: !file_ext!
-        @REM echo Base name: !base_name!
-        @REM echo New name: !new_name!
-        @REM echo Output file: !output_file!
+        echo Input file: %%~ni
+        echo File extension: !file_ext!
+        echo Base name: !base_name!
+        echo New name: !new_name!
+        echo Output file: !output_file!
         
         rem Check if the file exists and rename it
         if exist "!output_file!" (
