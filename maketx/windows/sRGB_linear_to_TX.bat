@@ -6,12 +6,27 @@ rem set "OCIO=C:\Users\valentin.nicolini\Desktop\PERSO\Pipe\OCIO\ACES\1.3\cg-con
 rem Enable delayed variable expansion
 setlocal enabledelayedexpansion
 
-rem Get the path to maketx.exe from an environment variable
-if "%MAKETX_PATH%"=="" (
-    echo Error: MAKETX_PATH environment variable is not set.
-    pause
+rem Define the application name 
+set "application_name=maketx"
+
+rem Check if the application exists and is accessible in the PATH
+where /q "%application_name%"
+if %errorlevel% equ 0 (
+    echo Application found: %application_name%
+    goto :run_conversion
+) else (
+    echo "%Application_name%" not found. Make sure "%application_name%" is installed and accessible in your PATH.
+
     exit /b 1
 )
+
+:run_conversion
+rem Define the source and target colorspaces
+set "source_colorspace=lin_srgb"
+set "target_colorspace=ACEScg"
+
+rem Define the maketx command with the specified options and colorspaces.
+set "maketx_command=maketx -v -u --threads 4 --format exr --checknan --constant-color-detect --opaque-detect --colorconvert "%source_colorspace%" "%target_colorspace%" --unpremult --oiio"
 
 rem Loop through each argument passed to the batch script
 for %%i in (%*) do (
@@ -21,77 +36,51 @@ for %%i in (%*) do (
         for %%j in ("%%i\*") do (
             rem Check if it's a valid file (ignoring folders)
             if not "%%~fj"=="" (
-                rem Running maketx command to generate the .exr.tx file
-                "%MAKETX_PATH%" -v -u --threads 4 --format exr --checknan --constant-color-detect --opaque-detect --colorconvert "Linear Rec.709 (sRGB)" ACEScg --unpremult --oiio  %%j
-                
+
                 rem Extracting the filename without extension
-                set "input_file=%%~nj"
-                
-                rem Extracting the file extension
-                set "file_ext=%%~xj"
-                
+                set "input_file=%%~nj"                
                 rem Construct the base name (filename without extension)
-                set "base_name=!input_file!"
-                
-                rem Construct the new name by appending "_raw" to the base name, then appending the extension
-                set "new_name=!base_name!_Linear Rec.709 (sRGB)_ACEScg!file_ext!.tx"
-                
+                set "base_name=!input_file!"                
+                rem Construct the new name by appending !source_colorspace! to the base name, then appending the extension
+                set "new_name=!base_name!_!source_colorspace!_!target_colorspace!.tx"                
                 rem Construct the output file path (directory + new name)
                 set "output_file=%%i\!new_name!"
-                
-                rem Display variables for debugging
-                echo Input dir: %%i
-                echo Input file: %%~nj
-                echo File extension: !file_ext!
-                echo Base name: !base_name!
-                echo New name: !new_name!
-                echo Output file: !output_file!
 
-                
-                rem Check if the file exists and rename it
-                if exist "!output_file!" (
-                    rem Rename the file to the desired output name
-                    echo Running command: "ren "!output_file!" "!base_name!_ACEScg.tx""
-                    ren "!output_file!" "!base_name!_ACEScg.tx"
-                ) else (
-                    echo File not found: !output_file!!
-                )
+                rem Running maketx command to generate the .exr.tx file
+                !maketx_command! %%j -o "!output_file!"
+                               
+                rem Display variables for debugging
+                @REM echo Input dir: %%i
+                @REM echo Input file: %%~nj
+                @REM echo File extension: !file_ext!
+                @REM echo Base name: !base_name!
+                @REM echo New name: !new_name!
+                @REM echo Output file: !output_file!
+
             )
         )
     ) else (
         rem If it's a file, process it directly
-        rem Running maketx command to generate the .exr.tx file
-        "%MAKETX_PATH%" -v -u --threads 4 --format exr --checknan --constant-color-detect --opaque-detect --colorconvert "Linear Rec.709 (sRGB)" ACEScg --unpremult --oiio  %%i
 
         rem Extracting the filename without extension
         set "input_file=%%~ni"
-        
-        rem Extracting the file extension
-        set "file_ext=%%~xi"
-        
         rem Construct the base name (filename without extension)
-        set "base_name=!input_file!"
-        
-        rem Construct the new name by appending "_raw" to the base name, then appending the extension
-        set "new_name=!base_name!_Linear Rec.709 (sRGB)_ACEScg!file_ext!.tx"
-        
+        set "base_name=!input_file!"        
+        rem Construct the new name by appending !source_colorspace! to the base name, then appending the extension
+        set "new_name=!base_name!_!source_colorspace!_!target_colorspace!.tx"
         rem Construct the output file path (directory + new name)
         set "output_file=%%~dpi!new_name!"
-        
+
+        rem Running maketx command to generate the .exr.tx file
+        !maketx_command! %%i -o "!output_file!"
+      
         rem Display variables for debugging
-        echo Input file: %%~ni
-        echo File extension: !file_ext!
-        echo Base name: !base_name!
-        echo New name: !new_name!
-        echo Output file: !output_file!
-        
-        rem Check if the file exists and rename it
-        if exist "!output_file!" (
-            rem Rename the file to the desired output name
-            ren "!output_file!" "!base_name!_ACEScg.tx"
-        ) else (
-            echo File not found: !output_file!
-        )
+        @REM echo Input file: %%~ni
+        @REM echo File extension: !file_ext!
+        @REM echo Base name: !base_name!
+        @REM echo New name: !new_name!
+        @REM echo Output file: !output_file!
+
     )
 )
 
