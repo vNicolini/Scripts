@@ -41,8 +41,8 @@ for %%i in (%*) do (
                 set "input_file=%%~nj"                
                 rem Construct the base name (filename without extension)
                 set "base_name=!input_file!"                
-                rem Construct the new name by appending !source_colorspace! to the base name, then appending the extension
-                set "new_name=!base_name!_!source_colorspace!_!target_colorspace!.tx"                
+                rem Construct the new name by appending the extension
+                set "new_name=!base_name!.tx"              
                 rem Construct the output file path (directory + new name)
                 set "output_file=%%i\!new_name!"
 
@@ -66,8 +66,8 @@ for %%i in (%*) do (
         set "input_file=%%~ni"
         rem Construct the base name (filename without extension)
         set "base_name=!input_file!"        
-        rem Construct the new name by appending !source_colorspace! to the base name, then appending the extension
-        set "new_name=!base_name!_!source_colorspace!_!target_colorspace!.tx"
+        rem Construct the new name by appending the extension
+        set "new_name=!base_name!.tx"
         rem Construct the output file path (directory + new name)
         set "output_file=%%~dpi!new_name!"
 

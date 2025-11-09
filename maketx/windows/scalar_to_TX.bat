@@ -24,7 +24,7 @@ if %errorlevel% equ 0 (
 
 :run_conversion
 rem Define the source and target colorspaces
-set "source_colorspace=scalar"
+set "source_colorspace=data"
 
 rem Define the maketx command with the specified options and colorspaces.
 set "maketx_command=maketx -v -u --threads 4 --format exr --fixnan box3 -constant-color-detect --monochrome-detect --opaque-detect --colorconfig %OCIO% --unpremult --oiio"
@@ -42,8 +42,8 @@ for %%i in (%*) do (
                 set "input_file=%%~nj"                
                 rem Construct the base name (filename without extension)
                 set "base_name=!input_file!"                
-                rem Construct the new name by appending !source_colorspace! to the base name, then appending the extension
-                set "new_name=!base_name!_!source_colorspace!.tx"                
+                rem Construct the new name by appending the extension
+                set "new_name=!base_name!.tx"              
                 rem Construct the output file path (directory + new name)
                 set "output_file=%%i\!new_name!"
 
@@ -67,8 +67,8 @@ for %%i in (%*) do (
         set "input_file=%%~ni"
         rem Construct the base name (filename without extension)
         set "base_name=!input_file!"        
-        rem Construct the new name by appending !source_colorspace! to the base name, then appending the extension
-        set "new_name=!base_name!_!source_colorspace!.tx"
+        rem Construct the new name by appending the extension
+        set "new_name=!base_name!.tx"
         rem Construct the output file path (directory + new name)
         set "output_file=%%~dpi!new_name!"
 
