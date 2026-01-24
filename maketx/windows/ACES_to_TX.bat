@@ -25,7 +25,7 @@ rem Define the source and target colorspaces
 set "source_colorspace=ACEScg"
 
 rem Define the maketx command with the specified options and colorspaces.
-set "maketx_command=maketx -v -u --threads 4 --format exr --fixnan box3 -constant-color-detect --monochrome-detect --opaque-detect --colorconfig %OCIO% --unpremult --oiio"
+set "maketx_command=maketx -v -u --threads 4 --format exr --fixnan box3 --constant-color-detect --monochrome-detect --opaque-detect --colorconfig %OCIO% --unpremult --oiio"
 
 rem Loop through each argument passed to the batch script
 for %%i in (%*) do (
